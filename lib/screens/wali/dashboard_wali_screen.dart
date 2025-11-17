@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:e_santri/screens/admin/login_screen.dart';
 // Sesuaikan path import ini agar menunjuk ke file api_service.dart Anda
 
 class DashboardWaliScreen extends StatefulWidget {
@@ -55,6 +56,17 @@ class _DashboardWaliScreenState extends State<DashboardWaliScreen> {
       appBar: AppBar(
         title: const Text('Dashboard Wali'),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+          ),
+        ],
       ),
 
       // Menggunakan RefreshIndicator untuk memuat ulang data dengan gesture tarik

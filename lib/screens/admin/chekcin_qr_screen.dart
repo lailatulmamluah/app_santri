@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:e_santri/models/checkin_data.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'verification_result_screen.dart';
+import 'login_screen.dart';
 
 class CheckInQrScreen extends StatelessWidget {
   const CheckInQrScreen({super.key});
@@ -17,6 +18,17 @@ class CheckInQrScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Scan QR Santri'),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: MobileScanner(
         // Untuk memindai QR code

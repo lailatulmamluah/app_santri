@@ -1,8 +1,8 @@
 // lib/screens/admin/home_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:e_santri/services/api_service.dart';
 import 'package:e_santri/screens/admin/chekcin_qr_screen.dart';
+import 'package:e_santri/screens/admin/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,6 +14,17 @@ class HomeScreen extends StatelessWidget {
         title: const Text('E-Santri Admin'),
         backgroundColor: Colors.green,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),

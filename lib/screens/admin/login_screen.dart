@@ -1,8 +1,8 @@
 // lib/screens/admin/login_screen.dart
 import 'package:flutter/material.dart';
-import 'package:e_santri/screens/admin/home_screen.dart';
-import 'package:e_santri/screens/wali/register_screen.dart';
 import 'package:e_santri/screens/admin/admin_main_screen.dart';
+import 'package:e_santri/screens/wali/register_screen.dart';
+import 'package:e_santri/screens/wali/wali_main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // ... (INPUT FIELD USERNAME/ID) ...
               TextFormField(
+                controller: _usernameController,
                 decoration: const InputDecoration(
                   labelText: 'Username / ID (Admin/Wali)',
                   prefixIcon: Icon(Icons.person),
@@ -47,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
               // ... (INPUT FIELD PASSWORD) ...
               TextFormField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -61,10 +65,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
+                    String username = _usernameController.text.trim();
+                    if (username.startsWith('admin')) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AdminMainScreen(),
+                        ),
+                      );
+                    } else if (username.startsWith('wali')) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              WaliMainScreen(waliId: username),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Username harus dimulai dengan "admin" atau "wali"',
+                          ),
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
